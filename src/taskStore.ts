@@ -14,21 +14,14 @@ let nextId = 4;
 
 export const getTasks = (): Task[] => tasks;
 
-/**
- * Adds a new task.
- *
- * INTENTIONAL BUG: This function does not trim whitespace from the title.
- * A title with only spaces ("   ") is considered valid, but the test expects
- * it to be rejected. This is the bug for "Lab 1" in the README.
- */
 export const addTask = (title: string): Task | null => {
-  // BUG is here: does not use .trim()
-  if (!title) {
-    return null; // Reject empty titles
+  const trimmed = title.trim();
+  if (!trimmed) {
+    return null;
   }
   const newTask: Task = {
     id: nextId++,
-    title: title,
+    title: trimmed,
     done: false,
   };
   tasks.push(newTask);
